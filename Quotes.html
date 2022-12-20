@@ -13,17 +13,82 @@
 
 </head>
 <body>
-    <div class = "wrapper">
-        <div class= "container">
-        <p id = "quote">Here is my secret. It is very simple. 
-            It is only with the heart that one can see rightly;
-             What is essential is invisible to the eye.
-        </p>
-        <h5 id ="author">Antoine de Saint-Exupéry</h5>
-        <button id = "btn">NewQuotes</button>  
-        
+  <nav>
+    <div class="navbar-brand">
+      <h1>Q<span style= "color: #C95827">Gen</span> </h1>
     </div>
+  </nav>
+  <div class="row contain">
+    <div class="col-md-6">
+      <h3 >
+        Create and customize your Own <span style = "color: #C95827;">Quotes</span> 
+      </h3>
     </div>
+    <div class="col-md-6">
+      <img class = "image" [src]="imagePath" alt="">
+    </div>
+  </div>
+  <div class="row details">
+    <div class="col-md-6">
+      <h2 style="text-align: center;">Qoutes</h2>
+      <ul>
+        <li *ngFor="let quote of quotes; let i = index">
+          <h4 style="padding-top:2rem">"{{quote.quote}}"</h4><br>
+          <button (click)="toggleDetails(i) " class="btn btn-warning">Details</button>
+          <app-quote-detail *ngIf="quote.showDetails" [quote]="quote" (delete)=deleteGoal(i)></app-quote-detail>
+        </li><br><br>
+      </ul>
+  
+    </div>
+    <div class="col-md-6">
+      <app-form (add)="addNewGoal($event)"></app-form>
+    </div>
+  </div>
+  <h2>Add your quote below</h2>
+
+<div class="row pos">
+  <div class="col-lg-12">
+    <form (ngSubmit)="submitQuote();quoteForm.resetForm({})" #quoteForm="ngForm">
+      <div class="form-control">
+        <label for="quote">Quote</label>
+        <textarea rows="12" type="text" id="quote" name=" quote" [(ngModel)]="newQuote.quote" #quote="ngModel"
+          required></textarea>
+        <div [hidden]="quote.valid || quote.pristine" class="alert alert-danger">
+          <p>Field Cannot be empty</p>
+
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name">Author</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="newQuote.author" name="author" #name='ngModel'
+          required>
+        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+          <p>Name is required</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="creation">Editor</label>
+        <input class="form-control" id="creation" name="" [(ngModel)]="newQuote.name" #name="ngModel" required>
+        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+          <p>Field Cannot be empty</p>
+        </div>
+      </div><br>
+
+      <div class="form-group">
+        <label for="complete">Date</label>
+        <input class="form-control" type='date' id="complete" name="completeDate" [(ngModel)]="newQuote.creationDate"
+          #creationDate="ngModel" required>
+        <div [hidden]="creationDate.value || creationDate.pristine" class="alert alert danger">
+          <p>Date is required</p>
+        </div>
+      </div><br><br>
+      <div class="form-group center">
+        <button type="submit" class="btn btn-lg">Add</button>
+      </div>
+    </form>
+  </div>
+
+</div>
   <script src = "Quotes.js"></script> 
 </body>
 </html>
