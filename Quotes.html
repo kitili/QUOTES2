@@ -33,7 +33,7 @@
       <h2 style="text-align: center;">Qoutes</h2>
       <ul>
         <li *ngFor="let quote of quotes; let i = index">
-          <h4 style="padding-top:2rem">"{{quote.quote}}"</h4><br>
+          <h4 style="padding-top:2rem">"quote"</h4><br>
           <button (click)="toggleDetails(i) " class="btn btn-warning">Details</button>
           <app-quote-detail *ngIf="quote.showDetails" [quote]="quote" (delete)=deleteGoal(i)></app-quote-detail>
         </li><br><br>
